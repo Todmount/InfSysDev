@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма реєстрації звернення</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <legend>Фіксація звернення</legend>
+
+    <form action="#" method="post">
+        <div class="wide-column">
+            <label for="category">Тематика</label>
+            <select id="category" name="category">
+                <option value="general">Загальне</option>
+                <option value="technical">Технічне питання</option>
+                <option value="billing">Питання щодо рахунків</option>
+            </select>
+        </div>
+
+        <div class="column">
+            <label for="last_name">Прізвище*</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Прізвище" required>
+
+            <label for="first_name">Ім'я*</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Ім'я" required>
+
+            <label for="middle_name">По батькові*</label>
+            <input type="text" id="middle_name" name="middle_name" placeholder="По батькові" required>
+
+            <label for="email">Електронна пошта*</label>
+            <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" pattern="^\+380\d{9}$" placeholder="+380">
+        </div>
+
+        <div class="column">
+            <label for="topic">Тема*</label>
+            <input type="text" id="topic" name="topic" placeholder="Холодильник не охолоджує, а нагріває їжу" required>
+
+            <label for="content">Звернення*</label>
+            <textarea id="content" name="content" required></textarea>
+        </div>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="subscribe" name="subscribe" value="yes" required class="hidden-checkbox">
+            <label for="subscribe" class="checkbox-label">
+                <div class="custom-checkbox"></div>
+                Згода на обробку персональних даних
+            </label>
+        </div>
+
+        <button type="submit">Надіслати</button>
+
+        <button class="history-button" onclick="showHistory()">
+            <img src="images/history.png" alt="Історія">
+        </button>
+    </form>
+
+    <script>
+        function showHistory() {
+            // Логіка для відображення історії звернень
+            alert('Реалізація відображення історії звернень буде додана пізніше.');
+        }
+    </script>
+	<!--для автозаповнення-->
+	<style>
+		input:-webkit-autofill,
+		input:-webkit-autofill:hover,
+		input:-webkit-autofill:focus,
+		input:-webkit-autofill:active {
+			transition: background-color 5000s ease-in-out 0s;
+			-webkit-text-fill-color: #fff !important;
+		}
+	</style>
+	
+</body>
+</html>
