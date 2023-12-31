@@ -1,4 +1,4 @@
-## Development Information System
+## Information System Development
 
 This project is a web-based application developed as a university task for managing and tracking applications. The system provides functionality for receiving applications, storing them, and displaying the application history.
 
