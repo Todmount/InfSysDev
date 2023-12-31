@@ -31,31 +31,56 @@ form {
     width: 100%;
 }
 
+/* Style for the history button */
 .history-button {
-    position: absolute;
-    top: -5px;
-    left: 800px;
-    background-color: #333;
+	position: relative;
+	display: flex;
+	align-items: center;
+    justify-content: space-around;
+	right: 0;
+    background-color: slategrey;
     color: #fff;
     padding: 10px;
     border: none;
-    cursor: pointer;
-    margin-top: 15px;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    max-width: 30px;
-    max-height: 30px;
+    cursor: pointer;
+    /*max-width: 30px;
+    max-height: 30px;*/
 }
-
 .history-button img {
-    width: 20px;
-    height: 20px;
+    width: auto;
+    height: auto;
+	max-width: 25px;
+	max-height: 25px;
 }
-
 .history-button:hover {
     background-color: #555;
+}
+/* Style for the submit button */
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+	border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+	margin-right: 20px;
+	align-items: center;
+    justify-content: space-around;
+}
+/* Style for the container of both buttons */
+.button-container {
+    display: flex;
+	flex-grow: 1;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+/* Style for the buttons inside the container */
+.button-container button {
+	display: flex;
+	/*height: 30px;	/* Adjust the width of buttons as needed */
+	margin-top: 10px;
 }
 
 label {
@@ -87,21 +112,21 @@ textarea {
     resize: none;
 }
 
-input:valid, select:valid, textarea:valid {
-    border-color: green;
+/* Orange border for all required fields that are empty */
+input:required:invalid, textarea:required:invalid, select:required:invalid {
+    border-color: orange;
 }
-
-input:invalid, select:invalid, textarea:invalid {
+/* Red border for all required fields that are invalid */
+input:invalid, textarea:invalid, select:invalid {
     border-color: red;
 }
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+/* Green border for all required fields that are valid */
+input:required:valid, textarea:required:valid, select:required:valid {
+    border-color: green;
+}
+/* something-something */
+input:valid, textarea:valid, select:valid {
+    border-color: green;
 }
 
 .checkbox-container {
