@@ -23,6 +23,18 @@ form {
     position: relative;
 }
 
+
+
+legend {
+    position: absolute;
+	top: -5%;
+    left: 50%; /* Center the legend horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
 .column {
     width: 48%;
 }
@@ -107,8 +119,10 @@ form {
 
 /* Other styles for buttons */
 .submit-button {
+	font-family: auto;
+	font-size: 20px;
+	font-variant-caps: petite-caps;
     background-color: #4CAF50;
-	heights: 40 px;
     color: white;
     padding: 6px 15px;
     border: none;
@@ -143,6 +157,7 @@ form {
     max-height: none; /* Remove any maximum height constraint */
 	align-items: center;
 }
+
 
 label {
     display: block;
@@ -269,6 +284,30 @@ input:valid, textarea:valid, select:valid {
     margin-bottom: 20px;
 }
 
+#timeContainer {
+	position: absolute;
+	top: 100%;
+    left: 50%; /* Center the legend horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.error-message {
+	position: relative;
+	top: 105%;
+    left: 50%; /* Center the legend horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    color: red;
+    font-size: 12px;       
+    margin-top: 15px;
+    padding: 10px;        
+    border: none;
+	background: rgba(33, 33, 33, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    justify-content: space-between;
+    display: none; /* Initially hide the error message */
 
 @media (min-width: 480px) {
     .column {
