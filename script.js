@@ -1,4 +1,3 @@
-
 function showCustomAlert(message, focusField) {
     // Create and append the backdrop
     var backdrop = document.createElement('div');
@@ -39,12 +38,6 @@ function closeModal() {
         mainForm.reset();
 
         modal.style.display = 'none';
-
-        // Check if the element with id 'historySection' exists before trying to access its 'style' property
-        /*var historySection = document.getElementById('historySection');
-        if (historySection) {
-            historySection.style.display = 'none';
-        }*/
 
         // Reset the timer only if the form hasn't been reset already
         if (!isFormReset) {
@@ -87,6 +80,7 @@ function fetchAndDisplayTime() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+	
 	// Fetch and display time initially
     fetchAndDisplayTime();
     // Set up an interval to fetch and display time every 60 seconds (adjust as needed)
@@ -178,34 +172,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Custom validation logic
         if (form_obj.last_name.value.trim() === '') {
-            showCustomAlert('Будь-ласка, введіть своє прізвище.', form_obj.last_name);
+            showCustomAlert('Будь ласка, введіть своє прізвище', form_obj.last_name);
             ok = false;
         } else if (form_obj.first_name.value.trim() === '') {
-            showCustomAlert('Буд-ласка, введіть своє ім\'я.', form_obj.first_name);
+            showCustomAlert('Будь ласка, введіть своє ім\'я', form_obj.first_name);
             ok = false;
         } else if (form_obj.middle_name.value.trim() === '') {
-            showCustomAlert('Будь ласка, введіть своє по батькові.', form_obj.middle_name);
+            showCustomAlert('Будь ласка, введіть своє по батькові', form_obj.middle_name);
             ok = false;
         } else if (checkEmail(form_obj.email.value.trim())) {
-            showCustomAlert('Невірна адреса електронної пошти.', form_obj.email);
+            showCustomAlert('Невірна адреса електронної пошти', form_obj.email);
             ok = false;
         } else if (!phonePattern.test(form_obj.phone.value.trim())) {
-            showCustomAlert('Недійсний номер телефону. Він має бути формату 380XXXXXXXXX.', 
+            showCustomAlert('Недійсний номер телефону. Він має бути формату 380XXXXXXXXX', 
 			form_obj.phone);
             ok = false;
         } else if (form_obj.topic.value.trim().length < 1) {
             showCustomAlert('Будь ласка, введіть тему.', form_obj.topic);
             ok = false;
         } else if (form_obj.content.value.trim().length < 10) {
-            showCustomAlert('Будь ласка, введіть принаймні 10 символів у зверненні.'), 
+            showCustomAlert('Будь ласка, введіть принаймні 10 символів у зверненні'), 
 			form_obj.content;
             ok = false;
         } else if(!agree.checked){
-			showCustomAlert('Будь ласка, погодьтеся з умовами.', form_obj.agree);
+			showCustomAlert('Будь ласка, погодьтеся з умовами', form_obj.agree);
 			ok = false;
 		}
 
-        // If everything is ok, you can submit the form
+        // If everything is ok, submit the form
         if (ok) {
             saveAndShowInfo(form_obj);
         }
@@ -213,38 +207,74 @@ document.addEventListener('DOMContentLoaded', function () {
         return false; // Prevent the default form submission behavior
     });
 
-    // Add event listener for the historyButton
+    // Add an event listener for the historyButton
     var historyButton = document.getElementById('historyButton');
     historyButton.addEventListener('click', function (event) {
         event.stopPropagation(); // Stop event propagation
         event.preventDefault(); // Prevent the default form submission
-		showHistory();
+        fetchHistoryFromServer(); // Fetch history before displaying it
     });
-	
-	//loadHistory();
-	
-	function showHistory() {
+
+    // Function to fetch history from the server
+	function fetchHistoryFromServer() {
+		$.ajax({
+			url: 'save_history.php',
+			type: 'GET',
+			dataType: 'xml',
+			success: function (historyData) {
+				// Check if XML file is missing
+				if (historyData === null) {
+					showCustomAlert('Помилка 505. Відсутній файл для зберігання історії');
+					return;
+				}
+
+				// Check if history is empty
+				if ($(historyData).find('entry').length === 0) {
+					showCustomAlert('Історія звернень відсутня');
+					return;
+				}
+
+				showHistory(historyData);
+			},
+			error: function (xhr, status, error) {
+				console.error('Error fetching history:', error);
+				showCustomAlert('Помилка отримання історії');
+			}
+		});
+	}
+
+
+    // Function to display history on the client side
+	function showHistory(historyData) {
 		var historyModal = document.getElementById('historyModal');
 		historyModal.style.display = 'block';
 
 		var historyContent = document.getElementById('historyContent');
 		historyContent.innerHTML = ''; // Clear previous content
-		// Display the last three requests
-		var startIdx = Math.max(0, data.length - 3); // Starting index to display the last three requests
-		for (var i = startIdx; i < data.length; i++) {
-			historyContent.innerHTML += '<p>' +
-				'<strong>Дата:</strong> ' + data[i].date +
-				'<br><strong>ФІО:</strong> ' + data[i].first_name + ' ' + data[i].middle_name + ' ' + data[i].last_name + 
-				'<br><strong>Тема:</strong> ' + data[i].topic +
-				'<br><strong>Email:</strong> ' + data[i].mail +
-				'<br><strong>Телефон:</strong> ' + data[i].phone +
-				'</p>';
-		}
-		if (data.length === 0) {
-			historyContent.innerHTML = '<p>Нема історії звернень</p>';
+
+		if (historyData.getElementsByTagName('entry').length > 0) { // Check if historyData (local) has entries
+			// Display the last three history entries
+			var entries = historyData.getElementsByTagName('entry');
+			var start = Math.max(entries.length - 3, 0); // Start index for the loop
+			for (var i = entries.length - 1; i >= start; i--) {
+				var entry = entries[i];
+				historyContent.innerHTML += '<p>' +
+					'<strong>Дата:</strong> ' + entry.getElementsByTagName('date')[0].textContent +
+					'<br><strong>ФІО:</strong> ' + entry.getElementsByTagName('first_name')[0].textContent + ' ' +
+					entry.getElementsByTagName('middle_name')[0].textContent + ' ' +
+					entry.getElementsByTagName('last_name')[0].textContent +
+					'<br><strong>Тема:</strong> ' + entry.getElementsByTagName('topic')[0].textContent +
+					'<br><strong>Email:</strong> ' + entry.getElementsByTagName('mail')[0].textContent +
+					'<br><strong>Телефон:</strong> ' + entry.getElementsByTagName('phone')[0].textContent +
+					'</p>';
+			}
+		} else {
+			console.error('Invalid historyData:', historyData);
+			showCustomAlert('Помилка формату історії');
 		}
 	}
-	// bit more complex email check
+
+	
 	function checkEmail(email) {
 		var banList = ['mail.ru', 'yandex.ru', 'list.ru'];
 		for (var i = 0; i < banList.length; i++) {
@@ -312,10 +342,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function saveAndShowInfo(form_obj) {
 		if (save_data(form_obj)) {
-			saveToLocalStorage(data);
+			saveToServer(form_obj);
 			win_info(form_obj);
-			loadHistory(); // Reload history after saving new data
+			//fetchHistoryFromServer(); // Reload history after saving new data
 		}
+	}
+	
+	function saveToServer(form_obj) {
+		$.ajax({
+			url: 'save_history.php',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				date: new Date().toLocaleString(),
+				first_name: form_obj.first_name.value.trim(),
+				middle_name: form_obj.middle_name.value.trim(),
+				last_name: form_obj.last_name.value.trim(),
+				mail: form_obj.email.value.trim(),
+				phone: form_obj.phone.value.trim(),
+				topic: form_obj.topic.value.trim(),
+				content: form_obj.content.value.trim()
+			}),
+			success: function (response) {
+				console.log('Data saved successfully:', response);
+			},
+			error: function (xhr, status, error) {
+				console.error('Error saving data:', error);
+				showCustomAlert('Помилка збереження даних');
+			}
+		});
 	}
 	
 	function save_data(form) {
@@ -328,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			phone: form.phone.value.trim(),
 			topic: form.topic.value.trim()
 		};
-		// Check for duplicates using a more precise comparison
+		// Check for duplicates (local)
 		for (var i = 0; i < data.length; i++) {
 			if (
 				data[i].mail.toLowerCase() === obj.mail.toLowerCase() &&
@@ -336,11 +391,11 @@ document.addEventListener('DOMContentLoaded', function () {
 				data[i].emali === obj.email &&
 				data[i].topic === obj.topic
 			) {
-				showCustomAlert('Ви вже зареєстували подібне звернення. Зачекайте, з Вами обов\'язокво зв\'жуться');
+				showCustomAlert('Ви вже зареєстували подібне звернення. Будь ласка, зачекайте, з Вами обов\'язокво зв\'яжуться');
 				return false;
 			}
 		}
-		// Limit the number of saved requests to three
+		// Limit the number of saved requests (local) to three
 		if (data.length >= 3) {
 			data.shift(); // Remove the oldest request if there are already three
 		}
@@ -360,24 +415,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			return JSON.parse(storedData);
 		}
 		return [];
-	}
-
-	function loadHistory() {
-		var historyContainer = document.getElementById('historyContainer');
-		historyContainer.innerHTML = ''; // Clear previous content
-
-		var storedData = loadFromLocalStorage();
-		if (storedData.length > 0) {
-			historyContainer.innerHTML += '<h2>History</h2>';
-			for (var i = 0; i < storedData.length; i++) {
-				historyContainer.innerHTML += '<p>' +
-					'<strong>ФІО:</strong> ' + storedData[i].first_name + ' ' + storedData[i].middle_name + ' ' + storedData[i].last_name + storedData[i].topic +
-					'<br><strong>Тема:</strong> '
-					'<br><strong>Email:</strong> ' + storedData[i].mail +
-					'<br><strong>Телефон:</strong> ' + storedData[i].phone +
-					'</p>';
-			}
-		}
 	}
 
 	function get_label(el) {
