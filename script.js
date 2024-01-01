@@ -427,5 +427,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		return lbl;
 	}
-	
+	///
+
+	const numStars = 100;
+    const starField = document.getElementById('starField');
+
+    function generateStars() {
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = Math.random() * 7 + 4 + 's'; // Adjust duration
+
+            starField.appendChild(star);
+        }
+    }
+
+    function removeStarsOnIgnoredElements() {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => {
+            if (isElementInIgnoreList(star)) {
+                star.remove();
+            }
+        });
+    }
+
+    function isElementInIgnoreList(star) {
+        const ignoreElements = document.querySelectorAll('.ignore-stars');
+        return Array.from(ignoreElements).some(ignoreElement =>
+            isOverlap(star, ignoreElement)
+        );
+    }
+
+    function isOverlap(element1, element2) {
+        const rect1 = element1.getBoundingClientRect();
+        const rect2 = element2.getBoundingClientRect();
+
+        return !(
+            rect1.right < rect2.left ||
+            rect1.left > rect2.right ||
+            rect1.bottom < rect2.top ||
+            rect1.top > rect2.bottom
+        );
+    }
+
+    generateStars();
+
+    // Listen for animation start and remove stars on ignored elements
+    starField.addEventListener('animationstart', removeStarsOnIgnoredElements);
 });
