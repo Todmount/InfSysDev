@@ -132,7 +132,7 @@ legend {
     flex-grow: 1; /* Allow buttons to take full width */
 }
 .submit-button:hover{
-	background-color: #7AC778;#80B8E1
+	background-color: #7AC778;
 }
 
 .history-button {
@@ -308,6 +308,7 @@ input:valid, textarea:valid, select:valid {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     justify-content: space-between;
     display: none; /* Initially hide the error message */
+}
 
 @media (min-width: 480px) {
     .column {
