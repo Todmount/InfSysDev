@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форма реєстрації звернення</title>
+	<script src="script.js"></script>
     <link rel="stylesheet" href="styles.css">
 	<script src="script.js"></script>
 </head>
 <body>
-    <form id = "reg_form">
+
+    <form id = "reg_form" action="#" method="post">
+	
         <div class="wide-column">
             <label for="category">Тематика</label>
             <select id="category" name="category">
@@ -33,6 +36,7 @@
 			autocomplete="email" required>
 
             <label for="phone">Телефон</label>
+
             <input type="tel" id="phone" name="phone" pattern="380\d{9}$" placeholder="380XXXXXXXXX" autocomplete="tel">
         </div>
         <div class="column">
@@ -40,6 +44,7 @@
             <input type="text" id="topic" name="topic" placeholder="Холодильник не охолоджує, а нагріває їжу" autocomplete="none" required>
 
             <label for="content">Звернення*</label>
+
             <textarea id="content" name="content" autocomplete="none" required></textarea>
         </div>
 		<!-- don't touch -->
@@ -88,4 +93,3 @@
 	</style>
 </body>
 </html>
-
