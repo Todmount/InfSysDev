@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форма реєстрації звернення</title>
+	<script src="script.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <legend>Фіксація звернення</legend>
-
     <form action="#" method="post">
+	
         <div class="wide-column">
             <label for="category">Тематика</label>
             <select id="category" name="category">
@@ -34,7 +34,7 @@
             <input type="email" id="email" name="email" placeholder="example@mail.com" required>
 
             <label for="phone">Телефон</label>
-            <input type="tel" id="phone" name="phone" pattern="^\+380\d{9}$" placeholder="+380">
+            <input type="tel" id="phone" name="phone" pattern="^\+380\d{9}$" placeholder="+380687538565">
         </div>
 
         <div class="column">
@@ -51,21 +51,21 @@
                 <div class="custom-checkbox"></div>
                 Згода на обробку персональних даних
             </label>
+			
         </div>
 
-        <button type="submit">Надіслати</button>
+        <div class="button-container">
+			
+			<button type="submit" class="submit-button">Надіслати</button>
 
-        <button class="history-button" onclick="showHistory()">
-            <img src="images/history.png" alt="Історія">
-        </button>
+			<button class="history-button" onclick="showHistory()">
+				<img src="history.png" alt="Історія">
+			</button>
+			
+		</div>
+
     </form>
 
-    <script>
-        function showHistory() {
-            // Логіка для відображення історії звернень
-            alert('Реалізація відображення історії звернень буде додана пізніше.');
-        }
-    </script>
 	<!--для автозаповнення-->
 	<style>
 		input:-webkit-autofill,
