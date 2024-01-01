@@ -31,7 +31,7 @@ To get started with the project, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/development-information-system.git
+   git clone https://github.com/Todmount/InfoSysDev.git
    ```
 
    Switch to the branch corresponding to the laboratory part you want to explore (optional):
