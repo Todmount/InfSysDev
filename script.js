@@ -194,9 +194,13 @@ document.addEventListener('DOMContentLoaded', function () {
             showCustomAlert('Будь ласка, введіть принаймні 10 символів у зверненні'), 
 			form_obj.content;
             ok = false;
-        } else if(!agree.checked){
+        } else if (!agree.checked){
 			showCustomAlert('Будь ласка, погодьтеся з умовами', form_obj.agree);
 			ok = false;
+		} else if (form_obj.category.value === "unchoosed") {
+            showCustomAlert('Будь ласка, оберіть тематику'), 
+			form_obj.category;
+            ok = false;
 		}
 
         // If everything is ok, submit the form
