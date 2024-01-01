@@ -16,11 +16,11 @@ The system is designed to streamline the process of receiving, storing, and mana
 
 The project development stages is organized into branches, each representing a part corresponding to a laboratory in the university curriculum. The branches are as follows:
 
-1. `Lab_1`: Developing web interface elements using HTML forms.
-2. `Lab_2`: Creating a dynamic web interface using JavaScript and the DOM object model.
-3. `Lab_3`: Building an interactive web interface using AJAX technology.
-4. `Lab_4`: Developing a client-server web application using HTML forms and server scripts (PHP).
-5. `Lab_5`: Organizational refinements and adherence to requirements. Final project submitted for evaluation.
+1. [`Lab_1`](https://github.com/Todmount/InfoSysDev/tree/Lab_1): Developing web interface elements using HTML forms.
+2. [`Lab_2`](https://github.com/Todmount/InfoSysDev/tree/Lab_2): Creating a dynamic web interface using JavaScript and the DOM object model.
+3. [`Lab_3`](https://github.com/Todmount/InfoSysDev/tree/Lab_3): Building an interactive web interface using AJAX technology.
+4. [`Lab_4`](https://github.com/Todmount/InfoSysDev/tree/Lab_4): Developing a client-server web application using HTML forms and server scripts (PHP).
+5. [`Lab_5`](https://github.com/Todmount/InfoSysDev/tree/Lab_5): Organizational refinements and adherence to requirements. Final project submitted for evaluation.
 
 Each branch is merged into the main branch upon completion.
 
