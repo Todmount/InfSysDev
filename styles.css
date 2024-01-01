@@ -7,6 +7,35 @@ body {
     min-height: 100vh;
     background: linear-gradient(to bottom right, #0c1443, #2b2e6e);
     color: #ffffff;
+    overflow: clip; /* Prevent stars from causing horizontal scrollbar */
+    
+}
+
+#starField {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    opacity: 0;
+    animation: fadeInOut 6s linear infinite; /* Adjust duration */
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
 }
 
 form {
@@ -68,10 +97,8 @@ legend {
 /* Add styles for the button-container to take full width */
 .button-container {
     width: 100%;
-	heights: 100%;
     display: flex;
 	margin-top: 10px;
-	max-heights: 30 px;
     justify-content: space-between;
 }
 
@@ -132,7 +159,7 @@ legend {
     flex-grow: 1; /* Allow buttons to take full width */
 }
 .submit-button:hover{
-	background-color: #7AC778;#80B8E1
+	background-color: #7AC778;
 }
 
 .history-button {
@@ -308,6 +335,7 @@ input:valid, textarea:valid, select:valid {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     justify-content: space-between;
     display: none; /* Initially hide the error message */
+}
 
 @media (min-width: 480px) {
     .column {
