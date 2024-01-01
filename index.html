@@ -5,68 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форма реєстрації звернення</title>
     <link rel="stylesheet" href="styles.css">
+	<script src="script.js"></script>
+	<script src="libraries/jquery-3.7.1.js"></script>
 </head>
 <body>
-
-    <legend>Фіксація звернення</legend>
-
-    <form action="#" method="post">
+    <form id = "reg_form">
+	
+		<legend>Фіксація звернення</legend>
+		
         <div class="wide-column">
             <label for="category">Тематика</label>
-            <select id="category" name="category">
-                <option value="general">Загальне</option>
-                <option value="technical">Технічне питання</option>
-                <option value="billing">Питання щодо рахунків</option>
-            </select>
+            <select id="category" name="category"></select>
         </div>
-
         <div class="column">
             <label for="last_name">Прізвище*</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Прізвище" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Прізвище" 
+			autocomplete="family-name" required>
 
             <label for="first_name">Ім'я*</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Ім'я" required>
+            <input type="text" id="first_name" name="first_name" placeholder="Ім'я" autocomplete="given-name" required>
 
             <label for="middle_name">По батькові*</label>
-            <input type="text" id="middle_name" name="middle_name" placeholder="По батькові" required>
+            <input type="text" id="middle_name" name="middle_name" placeholder="По батькові" autocomplete="additional-name" required>
 
             <label for="email">Електронна пошта*</label>
-            <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+            <input type="email" id="email" name="email" placeholder="example@mail.com" 
+			autocomplete="email" required>
 
             <label for="phone">Телефон</label>
-            <input type="tel" id="phone" name="phone" pattern="^\+380\d{9}$" placeholder="+380">
+            <input type="tel" id="phone" name="phone" pattern="380\d{9}$" placeholder="380XXXXXXXXX" autocomplete="tel">
         </div>
-
         <div class="column">
             <label for="topic">Тема*</label>
-            <input type="text" id="topic" name="topic" placeholder="Холодильник не охолоджує, а нагріває їжу" required>
+            <input type="text" id="topic" name="topic" placeholder="Холодильник не охолоджує, а нагріває їжу" autocomplete="none" required>
 
             <label for="content">Звернення*</label>
-            <textarea id="content" name="content" required></textarea>
+            <textarea id="content" name="content" autocomplete="none" required></textarea>
+			
         </div>
+		<!-- don't touch modals-->
+		<div id="historyContainer"></div>
+		<div id="requestModal" class="modal">
+		  <div class="modal-content">
+			<span class="close" onclick="closeModal()" > &times; </span>
+			<h3>Звернення прийнято</h3>
+			<div id="modalContent"></div>
+			<p>Time remaining: <span id="timer">10</span> seconds</p>
+		  </div>
+		</div>
+		<div id="historyModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeHistoryModal()">&times;</span>
+				<h3>Історія звернень</h3>
+				<div id="historyContent"></div>
+			</div>
+		</div>
+		<!-- -->
+		<div class="form-container">
+		
+			<div class="wide-column">
+				
+				<div class="checkbox-container">
+					<input type="checkbox" id="agree" name="agree" required>
+					<label for="agree" class="custom-checkbox"></label>
+					<label for="agree" class="checkbox-label">Згода на обробку персональних даних</label>
+				</div>
+			</div>
+			<div class="button-container">
+				<button type="submit" class="submit-button" id="submitButton">Надіслати</button>
+				<button class="history-button" id='historyButton'>
+					<img src="history.png" alt="Історія">
+				</button>
+			</div>
+			
+		</div>
+		<div id="timeContainer"></div>
+		
+		<div class="error-message" id="errorMessage">
+			Збій отримання часу. Ви все ще можете подати звернення.
+		</div>		
 
-        <div class="checkbox-container">
-            <input type="checkbox" id="subscribe" name="subscribe" value="yes" required class="hidden-checkbox">
-            <label for="subscribe" class="checkbox-label">
-                <div class="custom-checkbox"></div>
-                Згода на обробку персональних даних
-            </label>
-        </div>
-
-        <button type="submit">Надіслати</button>
-
-        <button class="history-button" onclick="showHistory()">
-            <img src="images/history.png" alt="Історія">
-        </button>
     </form>
-
-    <script>
-        function showHistory() {
-            // Логіка для відображення історії звернень
-            alert('Реалізація відображення історії звернень буде додана пізніше.');
-        }
-    </script>
-	<!--для автозаповнення-->
+	<!--autofill fix-->
 	<style>
 		input:-webkit-autofill,
 		input:-webkit-autofill:hover,
@@ -76,6 +96,6 @@
 			-webkit-text-fill-color: #fff !important;
 		}
 	</style>
-	
 </body>
 </html>
+

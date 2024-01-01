@@ -23,6 +23,18 @@ form {
     position: relative;
 }
 
+
+
+legend {
+    position: absolute;
+	top: -5%;
+    left: 50%; /* Center the legend horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
 .column {
     width: 48%;
 }
@@ -31,57 +43,121 @@ form {
     width: 100%;
 }
 
-/* Style for the history button */
-.history-button {
-	position: relative;
-	display: flex;
-	align-items: center;
-    justify-content: space-around;
-	right: 0;
-    background-color: slategrey;
+/* Add styles for the form container */
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+	flex-grow: 1;
+}
+
+/* Update styles for the wide-column to take full width on top */
+.wide-column {
+    width: 100%;
+    margin-bottom: 15px; /* Add margin to create space between wide-column and buttons */
+}
+
+/* Update styles for the checkbox-container to be on top */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 0; /* Add margin to create space between checkbox-container and buttons */
+}
+
+/* Add styles for the button-container to take full width */
+.button-container {
+    width: 100%;
+	heights: 100%;
+    display: flex;
+	margin-top: 10px;
+	max-heights: 30 px;
+    justify-content: space-between;
+}
+
+/* Add these styles for the custom checkbox */
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.custom-checkbox:after {
+    content: '';
+    width: 10px;
+    height: 5px;
+    border: 3px solid #fff;
+    border-top: none;
+    border-right: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    opacity: 0;
+}
+
+.checkbox-container input:checked + .custom-checkbox:after {
+    opacity: 1;
+}
+
+.checkbox-label {
+	cursor: pointer;
     color: #fff;
-    padding: 10px;
+    margin-left: 5px; /* Adjust as needed for spacing */
+}
+
+/* Adjust these styles as needed */
+.checkbox-container input {
+    position: absolute;
+    left: -9999px;
+}
+
+/* Other styles for buttons */
+.submit-button {
+	font-family: auto;
+	font-size: 20px;
+	font-variant-caps: petite-caps;
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    /*max-width: 30px;
-    max-height: 30px;*/
-}
-.history-button img {
-    width: auto;
-    height: auto;
-	max-width: 25px;
-	max-height: 25px;
-}
-.history-button:hover {
-    background-color: #555;
-}
-/* Style for the submit button */
-.submit-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-	border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
 	margin-right: 20px;
+    flex-grow: 1; /* Allow buttons to take full width */
+}
+.submit-button:hover{
+	background-color: #7AC778;#80B8E1
+}
+
+.history-button {
+	padding: 6px; /* Adjust the top and bottom padding */
+    height: 40px;
+	width: 40px;	/* Adjust the height */
+    background-color: #3A8BCD;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 	align-items: center;
-    justify-content: space-around;
 }
-/* Style for the container of both buttons */
-.button-container {
-    display: flex;
-	flex-grow: 1;
-    justify-content: space-between;
-    margin-top: 15px;
+.history-button:hover{
+	background-color: #80B8E1;
 }
-/* Style for the buttons inside the container */
-.button-container button {
-	display: flex;
-	/*height: 30px;	/* Adjust the width of buttons as needed */
-	margin-top: 10px;
+
+.history-button img {
+    width: 30px; /* Adjust the width */
+    height: 30px; /* Adjust the height */
+    max-width: none; /* Remove any maximum width constraint */
+    max-height: none; /* Remove any maximum height constraint */
+	align-items: center;
 }
+
 
 label {
     display: block;
@@ -129,41 +205,109 @@ input:valid, textarea:valid, select:valid {
     border-color: green;
 }
 
-.checkbox-container {
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-content {
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  backdrop-filter: blur(20px); /* Apply blur effect */
+  z-index: 999; /* Ensure the backdrop is behind the modal */
+  box-shadow: 0 0 20px 5px #4CAF50; /* glowing effect */
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#historySection {
+  display: none;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    backdrop-filter: blur(5px); /* Apply blur effect */
+    z-index: 999; /* Ensure the backdrop is behind the modal */
 }
 
-#subscribe {
-    opacity: 0;
-    position: absolute;
-}
-
-.custom-checkbox {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #4CAF50;
+.custom-modal {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333333; /* Lighter coal color */
+    border: none;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
+    padding: 25px;
+    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.5); /* Red glowing effect */
+    z-index: 1000;
+    text-align: center;
+    color: #fff; /* Set text color to white for better readability */
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #fff;
     cursor: pointer;
 }
 
-#subscribe:checked + .custom-checkbox::after {
-    content: '✔';
-    color: #4CAF50;
-    font-size: 16px;
+.custom-modal p {
+    margin-bottom: 20px;
 }
 
-.checkbox-label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+#timeContainer {
+	position: absolute;
+	top: 100%;
+    left: 50%; /* Center the legend horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    font-weight: bold;
+    margin-bottom: 15px;
 }
+
+.error-message {
+	position: relative;
+	top: 105%;
+    left: 50%; /* Center the legend horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    color: red;
+    font-size: 12px;       
+    margin-top: 15px;
+    padding: 10px;        
+    border: none;
+	background: rgba(33, 33, 33, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    justify-content: space-between;
+    display: none; /* Initially hide the error message */
 
 @media (min-width: 480px) {
     .column {
