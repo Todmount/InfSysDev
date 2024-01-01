@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch history from the server
 	function fetchHistoryFromServer() {
 		$.ajax({
-			url: 'save_history.php',
+			url: 'backend/server.php',
 			type: 'GET',
 			dataType: 'xml',
 			success: function (historyData) {
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	function saveToServer(form_obj) {
 		$.ajax({
-			url: 'save_history.php',
+			url: 'backend/server.php',
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({
