@@ -7,6 +7,35 @@ body {
     min-height: 100vh;
     background: linear-gradient(to bottom right, #0c1443, #2b2e6e);
     color: #ffffff;
+    overflow: clip; /* Prevent stars from causing horizontal scrollbar */
+    
+}
+
+#starField {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    opacity: 0;
+    animation: fadeInOut 6s linear infinite; /* Adjust duration */
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
 }
 
 form {
