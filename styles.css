@@ -97,10 +97,8 @@ legend {
 /* Add styles for the button-container to take full width */
 .button-container {
     width: 100%;
-	heights: 100%;
     display: flex;
 	margin-top: 10px;
-	max-heights: 30 px;
     justify-content: space-between;
 }
 
